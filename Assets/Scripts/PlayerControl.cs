@@ -10,13 +10,13 @@ public class PlayerControl : MonoBehaviour
     public float dashForce;
     public float flip;
 
-    //public bool grounded;
-    //public LayerMask whatIsGrd;
-    //public Transform grdChecker;
-    //public float grdCheckerRad;
+    public bool grounded;
+    public LayerMask whatIsGrd;
+    public Transform grdChecker;
+    public float grdCheckerRad;
 
-    //public float airTime;
-    //public float airTimeCounter;
+    public float airTime;
+    public float airTimeCounter;
 
     // Start is called before the first frame update 
     void Start()
@@ -26,7 +26,7 @@ public class PlayerControl : MonoBehaviour
         flip = -1;
         
 
-        //airTimeCounter = airTime;
+        airTimeCounter = airTime;
     }
     // Update is called once per frame 
     void Update()
@@ -40,11 +40,11 @@ public class PlayerControl : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //grounded = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsGrd);
+        grounded = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsGrd);
 
         MovePlayer();
-        Dash();
-        Teleport();
+        //Dash();
+        //Teleport();
         Jump();
 
     }
@@ -56,49 +56,49 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void Dash()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            theRB2D.velocity = new Vector2(dashForce, theRB2D.velocity.y);
-        }
-    }
+    //void Dash()
+    //{
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+            //theRB2D.velocity = new Vector2(dashForce, theRB2D.velocity.y);
+        //}
+    //}
     
-    void Teleport()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            theRB2D.MovePosition(theRB2D.position * -1); 
-        }
-    }
+    //void Teleport()
+    //{
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+            //theRB2D.MovePosition(theRB2D.position * -1); 
+        //}
+    //}
     
     void Jump()
     {
-        //if (grounded == true)
-        //{
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) && theRB2D.position.y < -7)
+        if (grounded == true)
+        {
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
                 theRB2D.velocity = new Vector2(theRB2D.velocity.x, jumpForce);
             }
-        //}
+        }
 
-        //if(Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
-        //{
-            //if(airTimeCounter > 0)
-            //{
-                //theRB2D.velocity = new Vector2(theRB2D.velocity.x, jumpForce);
-                //airTimeCounter -= Time.deltaTime;
-            //}
-        //}
+        if(Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
+        {
+            if(airTimeCounter > 0)
+            {
+                theRB2D.velocity = new Vector2(theRB2D.velocity.x, jumpForce);
+                airTimeCounter -= Time.deltaTime;
+            }
+        }
 
-        //if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
-        //{
-            //airTimeCounter = 0;
-        //}
+        if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
+        {
+            airTimeCounter = 0;
+        }
 
-        //if (grounded)
-        //{
-            //airTimeCounter = airTime;
-        //}
+        if (grounded)
+        {
+            airTimeCounter = airTime;
+        }
     }
 }
