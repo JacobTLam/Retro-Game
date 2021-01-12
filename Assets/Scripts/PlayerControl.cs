@@ -18,10 +18,13 @@ public class PlayerControl : MonoBehaviour
     public float airTime;
     public float airTimeCounter;
 
+    private Animator theAnimator;
+
     // Start is called before the first frame update 
     void Start()
     {
         theRB2D = GetComponent<Rigidbody2D>();
+        theAnimator = GetComponent<Animator>();
         dashForce = 100;
         flip = -1;
         
@@ -31,7 +34,11 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame 
     void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
+        {
+            airTimeCounter = 0;
+        }
+
         if (Input.GetAxisRaw("Horizontal") > 0.5f || Input.GetAxisRaw("Horizontal") < -0.5f)
         {
             canMove = true;
@@ -53,6 +60,13 @@ public class PlayerControl : MonoBehaviour
         if (canMove)
         {
             theRB2D.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, theRB2D.velocity.y);
+
+            theAnimator.SetFloat("Speed", Mathf.Abs(theRB2D.velocity.x));
+
+            if (theRB2D.velocity.x > 0)
+                transform.localScale = new Vector2(1f, 1f);
+            else if (theRB2D.velocity.x < 0)
+                transform.localScale = new Vector2(-1f, 1f);
         }
     }
 
@@ -82,23 +96,22 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-        if(Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
+
+        if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
         {
-            if(airTimeCounter > 0)
+            if (airTimeCounter > 0)
             {
                 theRB2D.velocity = new Vector2(theRB2D.velocity.x, jumpForce);
                 airTimeCounter -= Time.deltaTime;
             }
-        }
 
-        if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
-        {
-            airTimeCounter = 0;
         }
 
         if (grounded)
         {
             airTimeCounter = airTime;
         }
+
+        theAnimator.SetBool("Grounded", grounded);
     }
 }
