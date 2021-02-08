@@ -18,11 +18,29 @@ public class PlayerControl : MonoBehaviour
     public float airTime;
     public float airTimeCounter;
 
+    public bool sprung;
+    public LayerMask whatIsSpr;
+
+    public bool tele;
+    public LayerMask whatIsTele;
+
     private Animator theAnimator;
+
+    public GameManager theGM;
+
+    public bool ceiling;
+    public LayerMask whatIsCei;
+    public Transform ceiChecker;
+    public float ceiCheckerRad;
+
+    private LivesManager theLM;
+
 
     // Start is called before the first frame update 
     void Start()
     {
+        theLM = FindObjectOfType<LivesManager>();
+
         theRB2D = GetComponent<Rigidbody2D>();
         theAnimator = GetComponent<Animator>();
         dashForce = 100;
@@ -43,12 +61,33 @@ public class PlayerControl : MonoBehaviour
         {
             canMove = true;
         }
-        Debug.Log(theRB2D.position.y);
+
+        if (sprung == true)
+        {
+            theRB2D.velocity = new Vector2(theRB2D.velocity.x, 50);
+        }
+
+        if(tele == true)
+        {
+            Vector2 newpos = new Vector2(-8.5f, 3.5f);
+            theRB2D.MovePosition(newpos);
+        }
+
+        if (ceiling == true)
+        {
+            transform.localScale = new Vector2(1f, -1f);
+            Physics2D.gravity = new Vector2(0, 0);
+        }
+        
+
+
     }
     private void FixedUpdate()
     {
         grounded = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsGrd);
-
+        sprung = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsSpr);
+        tele = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsTele);
+        ceiling = Physics2D.OverlapCircle(ceiChecker.position, ceiCheckerRad, whatIsCei);
         MovePlayer();
         //Dash();
         //Teleport();
@@ -99,6 +138,7 @@ public class PlayerControl : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
         {
+            
             if (airTimeCounter > 0)
             {
                 theRB2D.velocity = new Vector2(theRB2D.velocity.x, jumpForce);
@@ -112,6 +152,18 @@ public class PlayerControl : MonoBehaviour
             airTimeCounter = airTime;
         }
 
+        
+        
         theAnimator.SetBool("Grounded", grounded);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Spike")
+        {
+            Debug.Log("Ouch!");
+            //theGM.GameOver();
+            theLM.TakeLife();
+        }
     }
 }
