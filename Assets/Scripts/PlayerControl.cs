@@ -28,10 +28,10 @@ public class PlayerControl : MonoBehaviour
 
     public GameManager theGM;
 
-    public bool ceiling;
-    public LayerMask whatIsCei;
-    public Transform ceiChecker;
-    public float ceiCheckerRad;
+    //public bool ceiling;
+    //public LayerMask whatIsCei;
+    //public Transform ceiChecker;
+    //public float ceiCheckerRad;
 
     private LivesManager theLM;
 
@@ -73,11 +73,11 @@ public class PlayerControl : MonoBehaviour
             theRB2D.MovePosition(newpos);
         }
 
-        if (ceiling == true)
-        {
-            transform.localScale = new Vector2(1f, -1f);
-            Physics2D.gravity = new Vector2(0, 0);
-        }
+        //if (ceiling == true)
+        //{
+         //   transform.localScale = new Vector2(1f, -1f);
+           // Physics2D.gravity = new Vector2(0, 0);
+       // }
         
 
 
@@ -87,7 +87,7 @@ public class PlayerControl : MonoBehaviour
         grounded = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsGrd);
         sprung = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsSpr);
         tele = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsTele);
-        ceiling = Physics2D.OverlapCircle(ceiChecker.position, ceiCheckerRad, whatIsCei);
+        //ceiling = Physics2D.OverlapCircle(ceiChecker.position, ceiCheckerRad, whatIsCei);
         MovePlayer();
         //Dash();
         //Teleport();

@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class LivesManager : MonoBehaviour
 {
-    public int defaultLives;
+    
     public int livesCounter;
-
+    
     public Text livesText;
 
     private GameManager theGM;
@@ -15,8 +15,9 @@ public class LivesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        livesCounter = defaultLives;
-
+        //livesCounter = PlayerPrefs.GetInt("CurrentLives");
+        livesCounter = 3;
+        //Debug.Log(livesCounter);
         theGM = FindObjectOfType<GameManager>();
     }
 
@@ -27,16 +28,19 @@ public class LivesManager : MonoBehaviour
 
         if(livesCounter < 1)
         {
+            //Debug.Log(livesCounter);
             theGM.GameOver();
         }
     }
     public void TakeLife()
     {
         livesCounter--;
+        PlayerPrefs.SetInt("CurrentLives", livesCounter);
     }
 
     public void AddLife()
     {
         livesCounter++;
+        PlayerPrefs.SetInt("CurrentLives", livesCounter);
     }
 }

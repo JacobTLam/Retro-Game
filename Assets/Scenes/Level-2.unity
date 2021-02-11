@@ -2237,8 +2237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4704d885953f15247acd2a3e3a983242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLives: 3
-  livesCounter: 0
+  livesCounter: 5
   livesText: {fileID: 2104325956}
 --- !u!4 &710572072
 Transform:
@@ -7373,7 +7372,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   grdChecker: {fileID: 522553378}
-  grdCheckerRad: 0
+  grdCheckerRad: 0.3
   airTime: 1
   airTimeCounter: 0
   sprung: 0
@@ -7385,12 +7384,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   theGM: {fileID: 296437397}
-  ceiling: 0
-  whatIsCei:
-    serializedVersion: 2
-    m_Bits: 2048
-  ceiChecker: {fileID: 614050709}
-  ceiCheckerRad: 1.8
 --- !u!95 &2003399445
 Animator:
   serializedVersion: 3
