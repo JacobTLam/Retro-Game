@@ -15,9 +15,7 @@ public class LivesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //livesCounter = PlayerPrefs.GetInt("CurrentLives");
-        livesCounter = 3;
-        //Debug.Log(livesCounter);
+        livesCounter = PlayerPrefs.GetInt("CurrentLives");
         theGM = FindObjectOfType<GameManager>();
     }
 

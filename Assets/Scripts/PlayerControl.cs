@@ -163,6 +163,7 @@ public class PlayerControl : MonoBehaviour
         {
             Debug.Log("Ouch!");
             //theGM.GameOver();
+            theGM.Reset();
             theLM.TakeLife();
         }
     }

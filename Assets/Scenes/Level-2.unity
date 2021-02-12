@@ -945,6 +945,7 @@ MonoBehaviour:
   thePlayer: {fileID: 2003399444}
   victoryScreen: {fileID: 621653260}
   gameOverScreen: {fileID: 1964512028}
+  mainMenu: MainMenu
 --- !u!4 &296437398
 Transform:
   m_ObjectHideFlags: 0
@@ -2380,7 +2381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &748062575
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3556,7 +3557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1098845817
 RectTransform:
   m_ObjectHideFlags: 0

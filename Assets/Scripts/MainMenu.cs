@@ -9,12 +9,9 @@ public class MainMenu : MonoBehaviour
 
     public int dfltLives;
 
-    private void start()
+    private void Start()
     {
-        Debug.Log(dfltLives);
-        dfltLives = 3;
-        PlayerPrefs.SetInt("CurrentLives", dfltLives);
-        
+        PlayerPrefs.SetInt("CurrentLives", dfltLives);       
     }
 
     public void PlayGame()
