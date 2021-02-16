@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoalPost : MonoBehaviour
+public class GoalPole : MonoBehaviour
 {
     public GameManager theGM;
 

@@ -796,7 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33950c804c821ca49960b6fe1ac48c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lvToLoad: Level-2
+  lvToLoad: Level-1
   dfltLives: 3
 --- !u!114 &2105866201
 MonoBehaviour:
