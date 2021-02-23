@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public float speed;
+    public float dfltSpeed;
     public float jumpForce;
     private bool canMove;
     private Rigidbody2D theRB2D;
@@ -48,6 +49,7 @@ public class PlayerControl : MonoBehaviour
         
 
         airTimeCounter = airTime;
+        dfltSpeed = speed;
     }
     // Update is called once per frame 
     void Update()
