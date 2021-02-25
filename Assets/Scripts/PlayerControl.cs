@@ -161,7 +161,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Spike")
+        if((other.gameObject.tag == "Spike") || (other.gameObject.tag == "Enemy"))
         {
             Debug.Log("Ouch!");
             //theGM.GameOver();
