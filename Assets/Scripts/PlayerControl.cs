@@ -19,6 +19,13 @@ public class PlayerControl : MonoBehaviour
     public float airTime;
     public float airTimeCounter;
 
+    private bool ctrlActive;
+    private bool isDead;
+
+    private Collider2D playerCol;
+    public GameObject[] childObjs;
+    public float shockForce;
+
     public bool sprung;
     public LayerMask whatIsSpr;
 
@@ -46,10 +53,13 @@ public class PlayerControl : MonoBehaviour
         theAnimator = GetComponent<Animator>();
         dashForce = 100;
         flip = -1;
-        
+
+        playerCol = GetComponent<Collider2D>();
 
         airTimeCounter = airTime;
         dfltSpeed = speed;
+
+        ctrlActive = true;
     }
     // Update is called once per frame 
     void Update()
@@ -87,6 +97,12 @@ public class PlayerControl : MonoBehaviour
     private void FixedUpdate()
     {
         grounded = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsGrd);
+
+        if(ctrlActive == true)
+        {
+            MovePlayer();
+            Jump();
+        }
         sprung = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsSpr);
         tele = Physics2D.OverlapCircle(grdChecker.position, grdCheckerRad, whatIsTele);
         //ceiling = Physics2D.OverlapCircle(ceiChecker.position, ceiCheckerRad, whatIsCei);
@@ -165,8 +181,46 @@ public class PlayerControl : MonoBehaviour
         {
             Debug.Log("Ouch!");
             //theGM.GameOver();
-            theGM.Reset();
             theLM.TakeLife();
+            PlayerDeath();
         }
+    }
+
+    void PlayerDeath()
+    {
+        isDead = true;
+        theAnimator.SetBool("Dead", isDead);
+
+        ctrlActive = false;
+
+        playerCol.enabled = false;
+        foreach (GameObject child in childObjs)
+            child.SetActive(false);
+
+        theRB2D.gravityScale = 2.5f;
+        theRB2D.AddForce(transform.up * shockForce, ForceMode2D.Impulse);
+
+        StartCoroutine("PlayerRespawn");
+        
+    }
+
+    IEnumerator PlayerRespawn()
+    {
+        yield return new WaitForSeconds(1.5f);
+        isDead = false;
+        theAnimator.SetBool("Dead", isDead);
+
+        
+
+        playerCol.enabled = true;
+        foreach (GameObject child in childObjs)
+            child.SetActive(true);
+
+        theRB2D.gravityScale = 5f;
+
+        yield return new WaitForSeconds(0.1f);
+        ctrlActive = true;
+        theGM.Reset();
+
     }
 }

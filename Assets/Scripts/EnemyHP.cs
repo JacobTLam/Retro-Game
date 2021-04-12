@@ -13,14 +13,17 @@ public class EnemyHP : MonoBehaviour
     private Collider2D parentCol;
     private Collider2D hurtboxCol;
 
+    private SpriteRenderer spriteRend;
+
     void Start()
     {
         currentHP = enemyHP;
-
         theAnim = transform.parent.GetComponent<Animator>();
 
         parentCol = transform.parent.GetComponent<Collider2D>();
         hurtboxCol = GetComponent<Collider2D>();
+
+        spriteRend = transform.parent.GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -39,10 +42,22 @@ public class EnemyHP : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
+        StartCoroutine("HitConfirm");
     }
     IEnumerator KillSwitch()
     {
         yield return new WaitForSeconds(2f);
         Destroy(transform.parent.gameObject);
     }
+
+    IEnumerator HitConfirm()
+    {
+        if(currentHP > 0)
+        {
+            spriteRend.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            spriteRend.enabled = true;
+        }
+    }
 }
+

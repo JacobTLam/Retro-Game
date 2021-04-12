@@ -27,7 +27,7 @@ public class LivesManager : MonoBehaviour
         if(livesCounter < 1)
         {
             //Debug.Log(livesCounter);
-            theGM.GameOver();
+            StartCoroutine("QueueGameOver");
         }
     }
     public void TakeLife()
@@ -40,5 +40,11 @@ public class LivesManager : MonoBehaviour
     {
         livesCounter++;
         PlayerPrefs.SetInt("CurrentLives", livesCounter);
+    }
+
+    IEnumerator QueueGameOver()
+    {
+        yield return new WaitForSeconds(1.5f);
+        theGM.GameOver();
     }
 }
