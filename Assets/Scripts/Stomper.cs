@@ -8,10 +8,17 @@ public class Stomper : MonoBehaviour
 
     private Rigidbody2D theRB2D;
     public float bounceForce;
+    private SineMovement theMove;
+    private SineMovement theDis;
+    private BossController theShotForce;
 
     void Start()
     {
         theRB2D = transform.parent.GetComponent<Rigidbody2D>();
+        theMove = FindObjectOfType<SineMovement>();
+        theDis = FindObjectOfType<SineMovement>();
+        theShotForce = FindObjectOfType<BossController>();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -19,7 +26,12 @@ public class Stomper : MonoBehaviour
         if (other.gameObject.tag == "Hurtbox")
         {
             other.gameObject.GetComponent<EnemyHP>().TakeDamage(damageToDeal);
+            theMove.moveFreq += 1;
+            theDis.moveDis += 0.2f;
+            theShotForce.shotForce += 3f;
+            
             theRB2D.AddForce(transform.up * bounceForce, ForceMode2D.Impulse);
         }
     }
+    
 }
